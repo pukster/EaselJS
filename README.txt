@@ -25,6 +25,13 @@ Benchmark Test: The benchmark test located in benchmark.html draws a large numbe
 
 	-Average Run Time: 439.14 ms
 
+--Test 4): Updates the stage every iteration without changing the Shapes or their graphics. Note, as the shapes are not cached, they will still be redrawn every trial iteration in the container.draw() function.
+	-Stage.autoClear==false
+	-Stage.enableMouseOver(0)
+	-Stage.mouseEnabled==false
+
+	-Average Run Time: 269.95 ms
+
 
 
 EASELJS LIBRARY:
