@@ -1,0 +1,120 @@
+<html>
+    
+    <head>
+	<!-- Import EaselJS Framework -->
+	<script src="src/easeljs/utils/UID.js"></script>
+	<script src="src/easeljs/geom/Matrix2D.js"></script>
+	<script src="src/easeljs/events/MouseEvent.js"></script>
+	<script src="src/easeljs/display/SpriteSheet.js"></script>
+	<script src="src/easeljs/display/Shadow.js"></script>
+	<script src="src/easeljs/display/DisplayObject.js"></script>
+	<script src="src/easeljs/display/Container.js"></script>
+	<script src="src/easeljs/display/Stage.js"></script>
+	<script src="src/easeljs/display/Bitmap.js"></script>
+	<script src="src/easeljs/display/BitmapSequence.js"></script>
+	<script src="src/easeljs/display/Graphics.js"></script>
+	<script src="src/easeljs/display/Shape.js"></script>
+	<script src="src/easeljs/display/Text.js"></script>
+	<script src="src/easeljs/utils/Ticker.js"></script>
+	<script src="src/easeljs/geom/Point.js"></script>
+	<!-- End EaselJS Imports -->
+
+        <script type="text/javascript">
+
+            function initEasel(){
+			canvas=document.getElementById('canvas1');    //get the canvas element from HTML
+			
+			canvas.height=1000;
+			canvas.width=1880;
+
+			if (stage==null){
+				stage = new Stage(canvas);
+			}
+			
+			stage.w=canvas.width;
+			stage.h=canvas.height;
+			stage.lw=10;
+			var bg = new Shape();
+			stage.addChild(bg);
+			bg.graphics.ss(stage.lw).s("rgba(0,0,0,1)").r(stage.x+stage.lw/2,stage.y+stage.lw/2,stage.w-stage.lw/2,stage.h-stage.lw/2).es();
+
+			
+			stage.snapToPixelEnabled=true;
+			stage.autoClear=false;
+
+			stage.enableMouseOver(0);
+			stage.mouseEnabled = false;
+            }
+
+		var cols=17;
+		var rows=9;
+		var w=50;
+		var h=50;
+		var pad=5;
+		var cOut=Graphics.getRGB(0,0,255,1.0);
+		var cOver=Graphics.getRGB(255,0,0,1.0);
+		var boxes=[];
+		var selectedBox=null;
+		var stage=null;
+
+		shapeType={
+			RECTANGLE:0,
+			CIRCLE:1,
+			OTHER:2
+		}
+
+		function draw(){
+			/*Runs a benchmark test of generating circles with Easel v with pure Canvas
+			**for simplicity, box size and positions will be hard coded
+			*/
+			var d = new Date();
+			var ct = d.getTime();
+			var trials = 100;
+
+			for (var tr = 0; tr<trials; tr++){
+				stage.removeAllChildren();
+				var container = new Container();
+				stage.addChild(container);
+				container.x = stage.lw+w/2;
+				container.y = stage.lw+w/2;
+
+				for (var j=0;j<rows;j++){
+					for (var i=0;i<cols;i++){
+						var shape=new Shape();
+						container.addChild(shape);
+
+						shape.x=i*(w+pad) << 0;
+						shape.y=j*(h+pad) << 0;
+						shape.w=w;
+						shape.h=h
+						shape.r=shape.w/2;
+						shape.lw=5;
+
+						shape.shapeType=shapeType.RECTANGLE;
+						boxes[j*cols+i]=shape;
+						shape.color=cOut;
+
+						shape.graphics = new Graphics;
+						shape.graphics.ss(shape.lw).ls([Graphics.getHSL(50,75,13,0.9),Graphics.getHSL(180,120,45,0.25)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).dr(shape.x<<0,shape.y<<0,shape.w<<0,shape.h<<0).es().lf([Graphics.getHSL(135,100,40,0.9),Graphics.getHSL(135,100,20,0.75)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).dr(shape.x<<0,shape.y<<0,shape.w<<0,shape.h<<0).ef().ss(shape.lw).ls([Graphics.getHSL(50,19,13,0.9),Graphics.getHSL(180,120,145,0.25)],[0,1],shape.x-shape.r,shape.y,shape.x+shape.r,shape.y).dc(shape.x<<0,shape.y<<0,shape.r<<0).es().lf([Graphics.getHSL(35,100,40,0.9),Graphics.getHSL(135,10,20,0.75)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).dc(shape.x<<0,shape.y<<0,shape.r<<0).ef()
+
+.ss(shape.lw).ls([Graphics.getHSL(50,19,13,0.9),Graphics.getHSL(180,120,145,0.25)],[0,1],shape.x-shape.r,shape.y,shape.x+shape.r,shape.y).dc(shape.x+shape.w<<0,shape.y<<0,shape.r<<0).es().lf([Graphics.getHSL(35,100,40,0.9),Graphics.getHSL(135,10,20,0.75)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).dc(shape.x+shape.w<<0,shape.y<<0,shape.r<<0).ef()
+
+.ss(shape.lw).ls([Graphics.getHSL(50,19,13,0.9),Graphics.getHSL(180,120,145,0.25)],[0,1],shape.x-shape.r,shape.y,shape.x+shape.r,shape.y).dc(shape.x<<0,shape.y+shape.h<<0,shape.r<<0).es().lf([Graphics.getHSL(35,100,40,0.9),Graphics.getHSL(135,10,20,0.75)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).dc(shape.x<<0,shape.y+shape.h<<0,shape.r<<0).ef()
+
+.ss(shape.lw).ls([Graphics.getHSL(50,19,13,0.9),Graphics.getHSL(180,120,145,0.25)],[0,1],shape.x-shape.r,shape.y,shape.x+shape.r,shape.y).dc(shape.x+shape.w<<0,shape.y+shape.h<<0,shape.r<<0).es().lf([Graphics.getHSL(35,100,40,0.9),Graphics.getHSL(135,10,20,0.75)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).dc(shape.x+shape.w<<0,shape.y+shape.h<<0,shape.r<<0).ef();
+					}
+				}
+				stage.update();
+			}
+			var d=new Date();
+			console.log((d.getTime()-ct)/trials);
+		}
+        </script>
+    </head>
+	
+    <body bgcolor="#fff" onload="initEasel();draw();"><table border="1">
+		<canvas id="canvas1" width="500" height="500"></canvas>
+
+    </body>
+    
+</html>

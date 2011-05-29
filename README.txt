@@ -2,6 +2,15 @@ PUKSTERS MODIFICATIONS:
 
 This is my attempt to optimize the EaselJS library by minimizing matrix multiplications and screen redraws. After each addition a benchmark test is run to observe the performance increase. 
 
+Benchmark Test: The benchmark test located in benchmark.html draws a large number of shapes with complex gradients and with alpha transparency values. It then averages out the run time over 100 trials. This same test is used after each code optimization to see its effects.
+
+--Test 1): The first test uses the unmodified EaselJS library. It removes all children from the stage every trial iteration, creates new shapes, draws new graphics for that shape and calls update WITHOUT first calling clear().
+	-Stage.autoClear==false
+	-Stage.enableMouseOver(0)
+	-Stage.mouseEnabled==false
+
+	-Average Run Time: 491.93 ms
+
 
 
 EASELJS LIBRARY:
