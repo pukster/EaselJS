@@ -53,6 +53,13 @@ Benchmark Test: The benchmark test located in benchmark.html draws a large numbe
 
 	-Average Run Time: 271.62 ms
 
+--Test 8): Simulates the mouse motion above on test 6. One of the boxes (by default the first one) is chosen and a mouse enter is simulated on it and then the entire container is recached. onMouseEnter simply redraws it to simulate a rollover effect (even though the same color is used here). Surprisingly, this is slower than only caching a single shape. The reason for this is that more is being cached every iteration whereas caching containers increases performance only if the cache is seldom updated.
+	-Stage.autoClear==false
+	-Stage.enableMouseOver(0)
+	-Stage.mouseEnabled==false
+
+	-Average Run Time: 331.82 ms
+
 
 
 EASELJS LIBRARY:
