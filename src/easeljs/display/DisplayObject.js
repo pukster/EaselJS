@@ -396,6 +396,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	p.initialize = function() {
 		this.id = UID.get();
 		this.children = [];
+		this._modified=true;
 	}
 	
 // public methods:
@@ -421,7 +422,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* into itself).
 	**/
 	p.draw = function(ctx, ignoreCache) {
-		if (ignoreCache || !this.cacheCanvas) { return false; }
+		if (this._modified || !this.cacheCanvas) { return false; }
 		ctx.drawImage(this.cacheCanvas, this._cacheOffsetX, this._cacheOffsetY);
 		return true;
 	}
