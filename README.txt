@@ -67,6 +67,38 @@ Benchmark Test: The benchmark test located in benchmark.html draws a large numbe
 
 	-Average Run Time: 329.78 ms
 
+--Test 9.1): Carry out test 9 again, this time checking to see the performance increase when child caches are reused to create parent caches. It stands to reason that in a container more things will stay the same than they will change. For example, in Mario Brothers 1 (NES) if mario hits a block, all other blocks, enemies, pipes... stay the same. Likewise, if a container has 100 buttons, 99 of those will not change on a rollover effect, only 1 will. 
+
+What we want in the onMouseOver function is a command such as 'this.cache(...); this.parent.cache(...);' what we don't want is either the parent to redraw all children, thereby defeating the purpose of caching the child in the first place, or removing the parent cache entirely and only caching the children (which was shown to be less efficient in test 6). 
+
+Unfortunately, for this test the Easel code must be updated. We will introduce a new instance level flag DisplayObject._modified. To keep things simple we will only consider shapes capable of being modified, and then they will propagate all the way back to inform all of their parents that a modification has occurred. Similarly, parents will look at all their children and treat modified from unmodified children differently. Shapes will be considered modified either when they have a new graphics instance created or when their graphics isntances are modified. In other words, when the graphics instance is initialized or when the graphics._dirty flag is true. When Shape is initialized, _modified is set to true so that it gets drawn the first time (even if graphics is an empty instance). Then in Graphics, when there is a test for _dirty, the _modified flag must be set to true. Later, when the shape is either drawn or cached, the _modified flag must be set to false. However, as there is no connection between the Graphics instance and the Shape it belongs to, and as my purpose here is to show that a performance gain exists in this approach, not to show the actual approach, I will simply set the _modified flag to true in the onMouseOver function and have the container set it to false once it has cached it. This is NOT how I intend the final application to follow.
+
+From tracing the flow of function calls, there is a hint of spaghetti code which almost everyone falls victim to when using scripting languages. 
+--Container.cache() --calls--> DisplayObject.cache()
+--DisplayObject.cache() --calls--> Container.draw()
+--Container.draw() --calls--> Dispaly.Draw()
+--Dispaly.Draw() --draws on-->Container._cacheCanvas
+
+Here, all that I did was change the conditional statement in DisplayObject.draw() from
+
+if (ignoreCache || !this.cacheCanvas) { return false; }
+
+to
+
+if (this._modified || !this.cacheCanvas) { return false; }
+
+so that the cache is used every time, unless there are changes.
+
+WARNING: This could lead to errors as it has already been reported that it is not good practice to continually read and write from and to the canvas. This applies to putImageData, but it might also apply to ctx.DrawImage (http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#pixel-manipulation)
+
+The results indicate a huge performance gain over redrawing all shapes inside a container (test 9). I think it would be highly beneficial to incorporate this into all other classes so long as it is possible to locate all situations where an object transitions from the unmodified to the modified and then back to the modified stage.
+
+	-Stage.autoClear==false
+	-Stage.enableMouseOver(0)
+	-Stage.mouseEnabled==false
+
+	-Average Run Time: 97.73 ms
+
 
 
 EASELJS LIBRARY:
