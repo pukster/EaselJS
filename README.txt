@@ -46,6 +46,13 @@ Benchmark Test: The benchmark test located in benchmark.html draws a large numbe
 
 	-Average Run Time: 21.05 ms
 
+--Test 7): Simulates mouse motion on test 5. One of the boxes (by default the first one) is chosen and a mouse enter is simulated on it and it is recached. onMouseEnter simply redraws it to simulate a rollover effect (even though the same color is used here). As would be expected, this significantly slows down performance as the new graphics has to be initialized, drawn and then cached.
+	-Stage.autoClear==false
+	-Stage.enableMouseOver(0)
+	-Stage.mouseEnabled==false
+
+	-Average Run Time: 271.62 ms
+
 
 
 EASELJS LIBRARY:
