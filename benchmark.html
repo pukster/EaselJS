@@ -121,7 +121,7 @@
 					dc(shape.x+shape.w<<0,shape.y+shape.h<<0,shape.r<<0).ef();
 				}
 				
-				//shape.cache(shape.x-shape.r-shape.lw/2,shape.y-shape.r-shape.lw/2,shape.w+2*(shape.r+shape.lw/2),shape.h+2*(shape.r+shape.lw/2));
+				shape.cache(shape.x-shape.r-shape.lw/2,shape.y-shape.r-shape.lw/2,shape.w+2*(shape.r+shape.lw/2),shape.h+2*(shape.r+shape.lw/2));
 			}
 				
 			container.cache(0,0,stage.w-stage.lw,stage.h-stage.lw);
@@ -164,7 +164,7 @@
 		lf([Graphics.getHSL(35,100,40,0.9),Graphics.getHSL(135,10,20,0.75)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).
 		dc(shape.x+shape.w<<0,shape.y+shape.h<<0,shape.r<<0).ef();
 
-		//shape.cache(shape.x-shape.r-shape.lw/2,shape.y-shape.r-shape.lw/2,shape.w+2*(shape.r+shape.lw/2),shape.h+2*(shape.r+shape.lw/2));
+		shape.cache(shape.x-shape.r-shape.lw/2,shape.y-shape.r-shape.lw/2,shape.w+2*(shape.r+shape.lw/2),shape.h+2*(shape.r+shape.lw/2));
 		container.cache(0,0,stage.w-stage.lw,stage.h-stage.lw);
 
 	}

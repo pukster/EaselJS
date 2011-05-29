@@ -60,6 +60,13 @@ Benchmark Test: The benchmark test located in benchmark.html draws a large numbe
 
 	-Average Run Time: 331.82 ms
 
+--Test 9): merges tests 7 and 8 by also caching shapes to see if this speeds up caching of containers. One of the boxes (by default the first one) is chosen and a mouse enter is simulated on it and then the entire container is recached. onMouseEnter simply redraws it to simulate a rollover effect (even though the same color is used here). There seems to be no increase in performance by also caching the shapes. The reason for this seems to be due to DisplayObject.cache(). To redraw the canvas the draw method is called as such: DisplayObject.draw(_cacheCtx, true, new Matrix2D(1,0,0,1,-x,-y)). 'true' here signals that we should ignore the cache. This prevents the situation where the same cache is drawn to the cache, rather than updating the cache. This is great for Shapes. Unfortunately, it also overlooks the cache of all children of a container. There are three ways to fix this. 1) create a new parameter for draw 'ignoreChildCache' which considers or ignores all children caches. 2) make ignoreCache only for the immediate DisplayObject. 3) Add a '_modified' flag so Easel knows when to cache displayObjects and when to use existing caches. The first solution has the drawback that the user has to provide more information. The second solution has the drawback that their is more micromanagement as the user has to manually cache every child before caching the parent. The third solution either leads to micromanagement as the user has to indicate when the displayObject has been modified, or careful care has to be taken to ensure all modifications are recorded (ie. mark shapes as modified when their graphics are updated).
+	-Stage.autoClear==false
+	-Stage.enableMouseOver(0)
+	-Stage.mouseEnabled==false
+
+	-Average Run Time: 329.78 ms
+
 
 
 EASELJS LIBRARY:
