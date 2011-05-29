@@ -69,30 +69,47 @@
 			*/
 			var d = new Date();
 			var ct = d.getTime();
+
+			stage.removeAllChildren();
+			var container = new Container();
+			stage.addChild(container);
+			container.x = stage.lw+w/2;
+			container.y = stage.lw+w/2;
+
+			for (var j=0;j<rows;j++){
+				for (var i=0;i<cols;i++){
+					var shape=new Shape();
+					container.addChild(shape);
+
+					shape.x=i*(w+pad) << 0;
+					shape.y=j*(h+pad) << 0;
+					shape.w=w;
+					shape.h=h
+					shape.r=shape.w/2;
+					shape.lw=5;
+
+					shape.shapeType=shapeType.RECTANGLE;
+					boxes[j*cols+i]=shape;
+					shape.color=cOut;
+
+					shape.graphics = new Graphics;
+					shape.graphics.ss(shape.lw).ls([Graphics.getHSL(50,75,13,0.9),Graphics.getHSL(180,120,45,0.25)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).dr(shape.x<<0,shape.y<<0,shape.w<<0,shape.h<<0).es().lf([Graphics.getHSL(135,100,40,0.9),Graphics.getHSL(135,100,20,0.75)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).dr(shape.x<<0,shape.y<<0,shape.w<<0,shape.h<<0).ef().ss(shape.lw).ls([Graphics.getHSL(50,19,13,0.9),Graphics.getHSL(180,120,145,0.25)],[0,1],shape.x-shape.r,shape.y,shape.x+shape.r,shape.y).dc(shape.x<<0,shape.y<<0,shape.r<<0).es().lf([Graphics.getHSL(35,100,40,0.9),Graphics.getHSL(135,10,20,0.75)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).dc(shape.x<<0,shape.y<<0,shape.r<<0).ef()
+
+.ss(shape.lw).ls([Graphics.getHSL(50,19,13,0.9),Graphics.getHSL(180,120,145,0.25)],[0,1],shape.x-shape.r,shape.y,shape.x+shape.r,shape.y).dc(shape.x+shape.w<<0,shape.y<<0,shape.r<<0).es().lf([Graphics.getHSL(35,100,40,0.9),Graphics.getHSL(135,10,20,0.75)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).dc(shape.x+shape.w<<0,shape.y<<0,shape.r<<0).ef()
+
+.ss(shape.lw).ls([Graphics.getHSL(50,19,13,0.9),Graphics.getHSL(180,120,145,0.25)],[0,1],shape.x-shape.r,shape.y,shape.x+shape.r,shape.y).dc(shape.x<<0,shape.y+shape.h<<0,shape.r<<0).es().lf([Graphics.getHSL(35,100,40,0.9),Graphics.getHSL(135,10,20,0.75)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).dc(shape.x<<0,shape.y+shape.h<<0,shape.r<<0).ef()
+
+.ss(shape.lw).ls([Graphics.getHSL(50,19,13,0.9),Graphics.getHSL(180,120,145,0.25)],[0,1],shape.x-shape.r,shape.y,shape.x+shape.r,shape.y).dc(shape.x+shape.w<<0,shape.y+shape.h<<0,shape.r<<0).es().lf([Graphics.getHSL(35,100,40,0.9),Graphics.getHSL(135,10,20,0.75)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).dc(shape.x+shape.w<<0,shape.y+shape.h<<0,shape.r<<0).ef();
+				}
+			}
+
 			var trials = 100;
 
 			for (var tr = 0; tr<trials; tr++){
-				stage.removeAllChildren();
-				var container = new Container();
-				stage.addChild(container);
-				container.x = stage.lw+w/2;
-				container.y = stage.lw+w/2;
 
 				for (var j=0;j<rows;j++){
 					for (var i=0;i<cols;i++){
-						var shape=new Shape();
-						container.addChild(shape);
-
-						shape.x=i*(w+pad) << 0;
-						shape.y=j*(h+pad) << 0;
-						shape.w=w;
-						shape.h=h
-						shape.r=shape.w/2;
-						shape.lw=5;
-
-						shape.shapeType=shapeType.RECTANGLE;
-						boxes[j*cols+i]=shape;
-						shape.color=cOut;
+						var shape = container.getChildAt(j*cols+i);
 
 						shape.graphics = new Graphics;
 						shape.graphics.ss(shape.lw).ls([Graphics.getHSL(50,75,13,0.9),Graphics.getHSL(180,120,45,0.25)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).dr(shape.x<<0,shape.y<<0,shape.w<<0,shape.h<<0).es().lf([Graphics.getHSL(135,100,40,0.9),Graphics.getHSL(135,100,20,0.75)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).dr(shape.x<<0,shape.y<<0,shape.w<<0,shape.h<<0).ef().ss(shape.lw).ls([Graphics.getHSL(50,19,13,0.9),Graphics.getHSL(180,120,145,0.25)],[0,1],shape.x-shape.r,shape.y,shape.x+shape.r,shape.y).dc(shape.x<<0,shape.y<<0,shape.r<<0).es().lf([Graphics.getHSL(35,100,40,0.9),Graphics.getHSL(135,10,20,0.75)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).dc(shape.x<<0,shape.y<<0,shape.r<<0).ef()

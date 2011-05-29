@@ -18,6 +18,13 @@ Benchmark Test: The benchmark test located in benchmark.html draws a large numbe
 
 	-Average Run Time: 443.01 ms
 
+--Test 3): Redraws the shape instead of recreating the shape every iteration.
+	-Stage.autoClear==false
+	-Stage.enableMouseOver(0)
+	-Stage.mouseEnabled==false
+
+	-Average Run Time: 439.14 ms
+
 
 
 EASELJS LIBRARY:
