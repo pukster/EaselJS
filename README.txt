@@ -11,6 +11,13 @@ Benchmark Test: The benchmark test located in benchmark.html draws a large numbe
 
 	-Average Run Time: 491.93 ms
 
+--Test 2): Runs test 1 but this time calls stage.clear() every trial iteration.
+	-Stage.autoClear==false
+	-Stage.enableMouseOver(0)
+	-Stage.mouseEnabled==false
+
+	-Average Run Time: 443.01 ms
+
 
 
 EASELJS LIBRARY:
