@@ -32,6 +32,13 @@ Benchmark Test: The benchmark test located in benchmark.html draws a large numbe
 
 	-Average Run Time: 269.95 ms
 
+--Test 5): Same as test 4 but shapes are cached this time.
+	-Stage.autoClear==false
+	-Stage.enableMouseOver(0)
+	-Stage.mouseEnabled==false
+
+	-Average Run Time: 248.83 ms
+
 
 
 EASELJS LIBRARY:
