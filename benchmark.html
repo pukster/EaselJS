@@ -121,14 +121,48 @@
 					dc(shape.x+shape.w<<0,shape.y+shape.h<<0,shape.r<<0).ef();
 				
 					shape.cache(shape.x-shape.r-shape.lw/2,shape.y-shape.r-shape.lw/2,shape.w+2*(shape.r+shape.lw/2),shape.h+2*(shape.r+shape.lw/2));
+
+					shape.onMouseOverCanvas=document.createElement('canvas');
+					shape.oldCanvas=shape.cacheCanvas;
+					shape.cacheCanvas=shape.onMouseOverCanvas;
+
+					shape.graphics = new Graphics;
+					shape.graphics.ss(shape.lw).ls([Graphics.getHSL(50,75,13,0.9),Graphics.getHSL(180,120,45,0.25)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).
+					dr(shape.x<<0,shape.y<<0,shape.w<<0,shape.h<<0).es().
+					lf([Graphics.getHSL(135,100,40,0.9),Graphics.getHSL(135,100,20,0.75)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).
+					dr(shape.x<<0,shape.y<<0,shape.w<<0,shape.h<<0).ef().
+					ss(shape.lw).ls([Graphics.getHSL(50,19,13,0.9),Graphics.getHSL(180,120,145,0.25)],[0,1],shape.x-shape.r,shape.y,shape.x+shape.r,shape.y).
+					dc(shape.x<<0,shape.y<<0,shape.r<<0).es().
+					lf([Graphics.getHSL(35,100,40,0.9),Graphics.getHSL(135,10,20,0.75)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).
+					dc(shape.x<<0,shape.y<<0,shape.r<<0).ef().
+			
+					ss(shape.lw).ls([Graphics.getHSL(50,19,13,0.9),Graphics.getHSL(180,120,145,0.25)],[0,1],shape.x-shape.r,shape.y,shape.x+shape.r,shape.y).
+					dc(shape.x+shape.w<<0,shape.y<<0,shape.r<<0).es().
+					lf([Graphics.getHSL(35,100,40,0.9),Graphics.getHSL(135,10,20,0.75)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).
+					dc(shape.x+shape.w<<0,shape.y<<0,shape.r<<0).ef().
+
+					ss(shape.lw).ls([Graphics.getHSL(50,19,13,0.9),Graphics.getHSL(180,120,145,0.25)],[0,1],shape.x-shape.r,shape.y,shape.x+shape.r,shape.y).
+					dc(shape.x<<0,shape.y+shape.h<<0,shape.r<<0).es().
+					lf([Graphics.getHSL(35,100,40,0.9),Graphics.getHSL(135,10,20,0.75)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).
+					dc(shape.x<<0,shape.y+shape.h<<0,shape.r<<0).ef().
+
+					ss(shape.lw).ls([Graphics.getHSL(50,19,13,0.9),Graphics.getHSL(180,120,145,0.25)],[0,1],shape.x-shape.r,shape.y,shape.x+shape.r,shape.y).
+					dc(shape.x+shape.w<<0,shape.y+shape.h<<0,shape.r<<0).es().
+					lf([Graphics.getHSL(35,100,40,0.9),Graphics.getHSL(135,10,20,0.75)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).
+					dc(shape.x+shape.w<<0,shape.y+shape.h<<0,shape.r<<0).ef();
+				
+					shape.cache(shape.x-shape.r-shape.lw/2,shape.y-shape.r-shape.lw/2,shape.w+2*(shape.r+shape.lw/2),shape.h+2*(shape.r+shape.lw/2));
+
 					shape._modified=false;
+
+					
 				}
 			}
 				
 			container.cache(0,0,stage.w-stage.lw,stage.h-stage.lw);
 			container._modified=false;
 
-			var trials = 1000;
+			var trials = 100;
 
 			for (var tr = 0; tr<trials; tr++){		
 				//console.log("Cache");
@@ -143,32 +177,12 @@
 		
 	function onMouseEnter(){
 		var shape = this;
-		shape.graphics = new Graphics;
-		shape.graphics.ss(shape.lw).ls([Graphics.getHSL(50,75,13,0.9),Graphics.getHSL(180,120,45,0.25)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).
-		dr(shape.x<<0,shape.y<<0,shape.w<<0,shape.h<<0).es().
-		lf([Graphics.getHSL(135,100,40,0.9),Graphics.getHSL(135,100,20,0.75)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).
-		dr(shape.x<<0,shape.y<<0,shape.w<<0,shape.h<<0).ef().
-		ss(shape.lw).ls([Graphics.getHSL(50,19,13,0.9),Graphics.getHSL(180,120,145,0.25)],[0,1],shape.x-shape.r,shape.y,shape.x+shape.r,shape.y).
-		dc(shape.x<<0,shape.y<<0,shape.r<<0).es().
-		lf([Graphics.getHSL(35,100,40,0.9),Graphics.getHSL(135,10,20,0.75)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).
-		dc(shape.x<<0,shape.y<<0,shape.r<<0).ef().
 
-		ss(shape.lw).ls([Graphics.getHSL(50,19,13,0.9),Graphics.getHSL(180,120,145,0.25)],[0,1],shape.x-shape.r,shape.y,shape.x+shape.r,shape.y).
-		dc(shape.x+shape.w<<0,shape.y<<0,shape.r<<0).es().
-		lf([Graphics.getHSL(35,100,40,0.9),Graphics.getHSL(135,10,20,0.75)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).
-		dc(shape.x+shape.w<<0,shape.y<<0,shape.r<<0).ef().
+		if (shape.cacheCanvas == shape.onMouseOverCanvas) { shape.cacheCanvas = shape.oldCanvas;}
+		else { shape.cacheCanvas = shape.onMouseOverCanvas;}
 
-		ss(shape.lw).ls([Graphics.getHSL(50,19,13,0.9),Graphics.getHSL(180,120,145,0.25)],[0,1],shape.x-shape.r,shape.y,shape.x+shape.r,shape.y).
-		dc(shape.x<<0,shape.y+shape.h<<0,shape.r<<0).es().
-		lf([Graphics.getHSL(35,100,40,0.9),Graphics.getHSL(135,10,20,0.75)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).
-		dc(shape.x<<0,shape.y+shape.h<<0,shape.r<<0).ef().
-
-		ss(shape.lw).ls([Graphics.getHSL(50,19,13,0.9),Graphics.getHSL(180,120,145,0.25)],[0,1],shape.x-shape.r,shape.y,shape.x+shape.r,shape.y).
-		dc(shape.x+shape.w<<0,shape.y+shape.h<<0,shape.r<<0).es().
-		lf([Graphics.getHSL(35,100,40,0.9),Graphics.getHSL(135,10,20,0.75)],[0,1],shape.x,shape.y+shape.h/2,shape.x+shape.w,shape.y+shape.h/2).
-		dc(shape.x+shape.w<<0,shape.y+shape.h<<0,shape.r<<0).ef();
-
-		shape.cache(shape.x-shape.r-shape.lw/2,shape.y-shape.r-shape.lw/2,shape.w+2*(shape.r+shape.lw/2),shape.h+2*(shape.r+shape.lw/2));
+		
+		//shape.cache(shape.x-shape.r-shape.lw/2,shape.y-shape.r-shape.lw/2,shape.w+2*(shape.r+shape.lw/2),shape.h+2*(shape.r+shape.lw/2));
 
 		shape._modified=true;
 		var parent;

@@ -99,7 +99,24 @@ The results indicate a huge performance gain over redrawing all shapes inside a 
 
 	-Average Run Time: 97.73 ms
 
+Test 10) uses the method devised above, but introduces a second cache. As computers generally have more memory than they have processing power, this test aims to find out whether having multiple caches provides any performance increases. Every shape, in addition to having the standard cache will also have one for onMouseOver. the OnMouseOver function quickly points the cache canvas to the onMouseOverCanvas. If there are many mouse signals, one canvas can be created for each:
 
+--onMouseOverGraphics-->onMouseOverCanvas
+--onMouseEnterGraphics-->onMouseEnterCanvas
+--onMouseLeaveGraphics-->onMouseLeaveCanvas
+--onMouseClickGraphics-->onMouseClickCanvas
+--onMouseDblClickGraphics-->onMouseDblClickCanvas
+...
+
+The user would then swap canvases in and out to quickly change the shapes.
+
+As there is only one mouse function here, to simulate enter and leave events, we will switch between the original cache canvas and a new onMouseOverCanvas which will reuse the same graphics object, jsut reinitialize it to incorporate the overhead into this test. The results of this should be very similar to the results for test 6 as all we're really doing is redrawing the cache every iteration. However, there should be some significant overhead as there are now twice as many initial cache() calls, as well as twice as many graphic vector draws, and the creation of another canvas. The benefit is that there are no more draw routines every time onMouseOver() is called, and only the container is cached, and even then it uses all of the existing cached shapes.
+
+	-Stage.autoClear==false
+	-Stage.enableMouseOver(0)
+	-Stage.mouseEnabled==false
+
+	-Average Run Time: 95.5 ms
 
 EASELJS LIBRARY:
 
