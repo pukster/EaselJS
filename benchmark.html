@@ -70,19 +70,20 @@
 			var d = new Date();
 			var ct = d.getTime();
 
-			stage.removeAllChildren();
+			//stage.removeAllChildren();
 			var container = new Container();
 			stage.addChild(container);
-			container.x = stage.lw+w/2;
-			container.y = stage.lw+w/2;
+			container.x = stage.lw;
+			container.y = stage.lw;
+			container.w= cols*(w+pad);
+			container.h= rows*(h+pad);
 
 			for (var j=0;j<rows;j++){
 				for (var i=0;i<cols;i++){
 					var shape=new Shape();
 					container.addChild(shape);
-
-					shape.x=i*(w+pad) << 0;
-					shape.y=j*(h+pad) << 0;
+					shape.x=i*(w+pad)+w/4 << 0;
+					shape.y=j*(h+pad)+w/4 << 0;
 					shape.w=w;
 					shape.h=h
 					shape.r=shape.w/2;
@@ -118,8 +119,10 @@
 					dc(shape.x+shape.w<<0,shape.y+shape.h<<0,shape.r<<0).ef();
 				}
 				
-				shape.cache(shape.x-shape.r-shape.lw/2,shape.y-shape.r-shape.lw/2,shape.w+2*(shape.r+shape.lw/2),shape.h+2*(shape.r+shape.lw/2));
+				//shape.cache(shape.x-shape.r-shape.lw/2,shape.y-shape.r-shape.lw/2,shape.w+2*(shape.r+shape.lw/2),shape.h+2*(shape.r+shape.lw/2));
 			}
+				
+			container.cache(0,0,stage.w-stage.lw,stage.h-stage.lw);
 
 			var trials = 1000;
 

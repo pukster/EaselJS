@@ -39,6 +39,13 @@ Benchmark Test: The benchmark test located in benchmark.html draws a large numbe
 
 	-Average Run Time: 248.83 ms
 
+--Test 6): Same as test 5 but the single container is cached this time. This means that only a single drawImage(_chachedCanvas,w,h) call is made, as opposed to ros x cols number of calls. Note, whether or not the shapes are cached should little to no affect on performance as they are only cached once.
+	-Stage.autoClear==false
+	-Stage.enableMouseOver(0)
+	-Stage.mouseEnabled==false
+
+	-Average Run Time: 21.05 ms
+
 
 
 EASELJS LIBRARY:
